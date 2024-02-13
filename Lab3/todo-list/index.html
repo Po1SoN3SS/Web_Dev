@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Список с заданиями</title>
+
+    <style>
+        body {
+            line-height: 1.5;
+        }
+
+        button {
+            border-radius: 0.2em;
+        }
+
+        .add-task {
+            background-color: black;
+            color: white;
+        }
+
+        #tasks {
+            display: flex;
+            justify-content: space-between;
+
+            flex-direction: column;
+            flex-wrap: wrap;
+
+            list-style-type: none;
+            padding-inline-start: 0;
+
+            & li {
+                flex-direction: row;
+                flex-wrap: wrap;
+
+                border-style: solid;
+            }
+
+            & .remove-task {
+                color: white;
+                background-color: black;
+
+                float: right;
+
+                margin-left: 10rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<h1>ToDo List</h1>
+
+<form id="input-form">
+    <label for="task-name">Task name</label>
+    <input name="task-name" id="task-name" type="text" placeholder="New Task" required autofocus>
+
+    <button class="add-task" type="submit">Add</button>
+</form>
+
+<ol id="tasks">
+    <!--    <li><input type="checkbox">Example-->
+    <!--        <button class="remove-task" title="Удалить">Удалить</button>-->
+</ol>
+
+<script>
+    const list = document.getElementById("tasks");
+    const inputForm = document.getElementById("input-form");
+
+    let tasksSet = new Set();
+
+    let drawTask = function (text) {
+        const task = document.createElement("li");
+
+        // Create and append the checkbox
+        const checkbox = document.createElement("input");
+        checkbox.type = "checkbox";
+        task.appendChild(checkbox);
+
+        // Add the task text
+        let textNode = document.createTextNode(text);
+        task.appendChild(textNode);
+
+        // Create and append the remove button
+        const removeButton = document.createElement("button");
+
+        removeButton.className = "remove-task";
+        removeButton.title = "Удалить";
+        removeButton.textContent = "Удалить";
+
+        let removeTask = function () {
+            tasksSet.delete(text);
+            localStorage.setItem("tasksSet", JSON.stringify(Array.from(tasksSet)));
+
+            list.removeChild(task);
+        };
+
+        removeButton.addEventListener("click", removeTask);
+        task.appendChild(removeButton);
+
+        list.appendChild(task);
+    };
+
+    let addTask = function (text) {
+        if (tasksSet.has(text)) {
+            alert("Task already exists!");
+            return;
+        }
+
+        tasksSet.add(text);
+        localStorage.setItem("tasksSet", JSON.stringify(Array.from(tasksSet)));
+
+        drawTask(text);
+    };
+
+    inputForm.addEventListener("submit", (event) => {
+        const data = new FormData(inputForm);
+        const text = data.get("task-name");
+
+        addTask(text)
+
+        event.preventDefault();
+    });
+
+    let loadAll = function () {
+        tasksSet = new Set(JSON.parse(localStorage.getItem("tasksSet")));
+
+        console.log(`tasksSet.size = ${tasksSet.size}`);
+
+        if (tasksSet.size === 0) {
+            const example = "example";
+
+            tasksSet.add(example);
+            localStorage.setItem("tasksSet", JSON.stringify(Array.from(tasksSet)));
+            drawTask(example);
+
+            return;
+        }
+
+        for (const task of tasksSet) {
+            // console.log(task);
+            drawTask(task);
+        }
+    }
+
+    loadAll();
+</script>
+
+</body>
+</html>
