@@ -1,0 +1,21 @@
+<h3>
+  <a [title]="product.name + ' details'">
+    {{ product.name }}
+  </a>
+</h3>
+
+<img src="{{product.image}}">
+
+<div>
+  <p>Description: {{ product.description }}</p>
+  <p>Price: {{ product.price }} tenge</p>
+  <p>Rating: {{ product.rating }} / 10</p>
+</div>
+
+<button (click)="share(product.kaspi_link)" type="button">
+  Share
+</button>
+
+<button (click)="buy(product.kaspi_link)" type="button">
+  Buy
+</button>
