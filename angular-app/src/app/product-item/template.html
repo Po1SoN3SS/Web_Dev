@@ -12,6 +12,21 @@
   <p>Rating: {{ product.rating }} / 10</p>
 </div>
 
+<hr>
+
+<div>
+  <p>Likes: {{ product.likes || 0 }} people</p>
+  <button type="button" (click)="like(product)">
+    Like
+  </button>
+</div>
+
+<hr>
+
+<button type="button" (click)="remove(product.id)">
+  Remove
+</button>
+
 <button (click)="share(product.kaspi_link)" type="button">
   Share
 </button>

@@ -1,9 +1,17 @@
+<h2>Select category</h2>
+
+<button *ngFor="let category of categories" (click)="selectedCategory = category">
+  Choose {{ category.name }}
+</button>
+
 <h2>Products</h2>
 
-<div *ngFor="let product of products">
+<div *ngFor="let product of selectedCategory.prod_list">
 
 
-  <app-product-item [product]="product">
-
+  <app-product-item
+    [product]="product"
+    (deleteEmitter)="onRemove($event)"
+  >
   </app-product-item>
 </div>

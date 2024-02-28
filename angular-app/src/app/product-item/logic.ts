@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {Product} from "../products";
 
 @Component({
@@ -10,6 +10,7 @@ import {Product} from "../products";
 })
 export class ProductItemComponent {
   @Input() product!: Product;
+  @Output() deleteEmitter: EventEmitter<number> = new EventEmitter();
 
   share(link: string) {
     const url: string = `https://wa.me/?text=${link}`;
@@ -18,5 +19,17 @@ export class ProductItemComponent {
 
   buy(link: string) {
     window.open(link, '_blank');
+  }
+
+  remove(id: number) {
+    this.deleteEmitter.emit(id);
+  }
+
+  like(product: Product) {
+    if (!product.likes) {
+      product.likes = 0;
+    }
+
+    product.likes += 1;
   }
 }

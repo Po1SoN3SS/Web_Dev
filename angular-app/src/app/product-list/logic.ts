@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 
-import {products} from '../products';
+import {categories, Category} from '../products';
 
 @Component({
   selector: 'app-product-list',
@@ -8,12 +8,11 @@ import {products} from '../products';
   styleUrls: ['./style.css']
 })
 export class Logic {
-  products = [...products];
+  categories = [...categories];
+
+  selectedCategory: Category = new Category("Empty category", []);
+
+  onRemove(removed_id: number) {
+    this.selectedCategory.prod_list = this.selectedCategory.prod_list.filter(product => product.id != removed_id);
+  }
 }
-
-
-/*
-Copyright Google LLC. All Rights Reserved.
-Use of this source code is governed by an MIT-style license that
-can be found in the LICENSE file at https://angular.io/license
-*/
