@@ -1,0 +1,7 @@
+<div class="album-card">
+	<header>
+		<h4>Author: {{ user.name }}</h4>
+	</header>
+	<a [routerLink]="'/albums/' + album.id">{{ album.title }}</a>
+	<button (click)="delete()">Delete</button>
+</div>

@@ -1,0 +1,13 @@
+<main>
+	<header>
+		<button (click)="clickBack()">Back</button>
+		<h1>{{ album.title }}</h1>
+		<p>{{ user.name }}</p>
+	</header>
+
+	<a [routerLink]="'/albums/' + album.id + '/photos'">View photos</a>
+	<form novalidate>
+		<input #titleInput placeholder="New title" type="text">
+		<button (click)="clickSave(titleInput.value)" type="button">Change title</button>
+	</form>
+</main>

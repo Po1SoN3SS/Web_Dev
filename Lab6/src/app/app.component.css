@@ -1,0 +1,35 @@
+nav {
+	background-color: green;
+	list-style-type: none;
+
+	& ul {
+		padding-inline-start: 0;
+	}
+
+	& ul li {
+		display: inline;
+
+		& a {
+			background-color: black;
+
+			&:hover {
+				background-color: dimgray;
+			}
+
+			&[aria-current="page"] {
+				background-color: darkslategray;
+
+				&:before {
+					content: "⍟ " / "";
+				}
+			}
+
+			color: white;
+			text-align: center;
+
+			padding: 1ch 1ch;
+
+			text-decoration-line: none;
+		}
+	}
+}
