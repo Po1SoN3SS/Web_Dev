@@ -1,0 +1,9 @@
+node_modules/
+.angular/
+out-tsc/
+
+__pycache__/
+
+venv/
+
+.idea/
